@@ -1,0 +1,11 @@
+{
+  "name": "rtsp-client",
+  "version": "0.0.0",
+  "description": "node-rtsp",
+  "author": {
+    "name": "Elad"
+  },
+  "dependencies": {
+    "jsmpeg": "1.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "node-rtsp",
+  "version": "0.0.0",
+  "description": "node-rtsp",
+  "main": "app.js",
+  "author": {
+    "name": "Elad"
+  },
+  "dependencies": {
+    "node-rtsp-stream": "0.0.3"
+  }
+}

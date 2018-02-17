@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="package.json" />
     <Content Include="handlers\video.ashx" />
     <None Include="packages.config" />
@@ -90,9 +91,14 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="handlers\video.ashx.cs">
       <DependentUpon>video.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Infarstructure\VideoResource.cs" />
+    <Compile Include="Infarstructure\VideoResourceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="scripts\jsmpg-live.js" />
   </ItemGroup>

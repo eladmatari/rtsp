@@ -16,13 +16,8 @@
     </style>
  <div id="vid"></div>
     <script>
-        var jsMpgLive = new JsMpgLive('#vid', 'ws://localhost:9999');
+        var jsMpgLive = new JsMpgLive('#vid', 'ws://localhost:<%= Port %>');
         jsMpgLive.start();
-
-        // Create h264 player
-        //var uri = 'ws://localhost:9999';
-        //var wsavc = new WSAvcPlayer(document.getElementById('vid'), "webgl", 1, 35);
-        //wsavc.connect(uri);
     </script>
 </body>
 </html>

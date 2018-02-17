@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rtsp_client.Infarstructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,10 +14,14 @@ namespace rtsp_client
 
         public string Height { get; set; }
 
+        public ushort Port { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Width = GetUnit(Request.QueryString["width"]);
             Height = GetUnit(Request.QueryString["height"]);
+
+            Port = VideoResourceManager.ActivateVideo(byte.Parse(Request.QueryString["idx"]));
         }
 
         public string GetUnit(string val)

@@ -6,6 +6,7 @@
     "name": "Elad"
   },
   "dependencies": {
-    "jsmpeg": "1.0.0"
+    "jsmpeg": "1.0.0",
+    "jplayer": "2.9.2"
   }
 }

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
+    <Content Include="handlers\video.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -77,8 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="scripts\jsmpg.js" />
-    <Content Include="scripts\WebSocketClient.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +90,11 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="handlers\video.ashx.cs">
+      <DependentUpon>video.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="scripts\jsmpg-live.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

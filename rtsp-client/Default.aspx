@@ -5,41 +5,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <script src="scripts/WebSocketClient.js"></script>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
     <script src="scripts/jsmpg.js"></script>
+    <script src="scripts/jsmpg-live.js"></script>
 </head>
 <body>
-    <canvas id="vid"></canvas>
+    <style>
+        <% if (Width != null) { %> canvas { width: <%= Width %>; } <% } %>
+        <% if (Height != null) { %> canvas { height: <%= Height %>; } <% } %>                                                              
+    </style>
+ <div id="vid"></div>
     <script>
-        var vidElm = document.getElementById('vid');
-        function loadVideo() {
-            
-            var wsc = new WebSocketClient();
+        var jsMpgLive = new JsMpgLive('#vid', 'ws://localhost:9999');
+        jsMpgLive.start();
 
-            wsc.onmessage = function (data, flags, number) {
-                //console.log(`WebSocketClient message #${number}: `, data);
-            }
-
-            wsc.onopen = function (ws) {
-                console.log("WebSocketClient connected:", ws);
-                //this.send("Hello World !");
-            }
-            wsc.onloaded = function (ws) {
-                console.log("WebSocketClient loaded:", ws);
-                player = new jsmpeg(ws, {
-                    canvas: vidElm // Canvas should be a canvas DOM element
-                });
-            }
-            wsc.open('ws://localhost:9999');
-
-            
-        }
-
-        window.addEventListener('load', function () {
-            loadVideo();
-        })
-        
-
+        // Create h264 player
+        //var uri = 'ws://localhost:9999';
+        //var wsavc = new WSAvcPlayer(document.getElementById('vid'), "webgl", 1, 35);
+        //wsavc.connect(uri);
     </script>
 </body>
 </html>

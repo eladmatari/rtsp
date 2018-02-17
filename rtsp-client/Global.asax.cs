@@ -43,7 +43,7 @@ namespace rtsp_client
 
         protected void Application_End(object sender, EventArgs e)
         {
-
+            VideoResourceManager.StopAll();
         }
     }
 }

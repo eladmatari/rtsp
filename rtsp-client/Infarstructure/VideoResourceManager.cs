@@ -21,5 +21,13 @@ namespace rtsp_client.Infarstructure
             _resources[index].Start();
             return _resources[index].Port;
         }
+
+        internal static void StopAll()
+        {
+            foreach (var resource in _resources)
+            {
+                resource.Stop();
+            }
+        }
     }
 }

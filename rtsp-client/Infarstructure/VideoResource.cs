@@ -8,7 +8,7 @@ using System.Web;
 
 namespace rtsp_client.Infarstructure
 {
-    public class VideoResource
+    public class VideoResource : IDisposable
     {
         public string Url { get; private set; }
 
@@ -17,6 +17,8 @@ namespace rtsp_client.Infarstructure
         public bool IsActive { get; private set; }
 
         private readonly object _lockObj = new object();
+
+        private Process _process;
 
         public VideoResource(string url, ushort port)
         {
@@ -27,7 +29,7 @@ namespace rtsp_client.Infarstructure
         public void Start()
         {
             if (IsActive)
-                return;
+                return; 
 
             lock (_lockObj)
             {
@@ -38,35 +40,31 @@ namespace rtsp_client.Infarstructure
                 {
                     IsActive = true;
                     var processInfo = new ProcessStartInfo();
-                    processInfo.FileName = @"C:\Program Files\nodejs\node.exe";
-                    processInfo.Arguments = $"\"{ConfigurationManager.AppSettings["NodeRtspPath"]}\" \"{Url}\" {Port}";
-                    processInfo.CreateNoWindow = true;
-                    processInfo.RedirectStandardError = true;
-                    processInfo.RedirectStandardOutput = true;
-                    processInfo.UseShellExecute = false;
+                    processInfo.FileName = $@"{ConfigurationManager.AppSettings["NodeRtspPath"]}";
+                    processInfo.Arguments = $"\"{Url}\" {Port}";
+                    //processInfo.CreateNoWindow = true;
+                    //processInfo.RedirectStandardError = true;
+                    //processInfo.RedirectStandardOutput = true;
+                    //processInfo.UseShellExecute = false;
 
                     Task.Run(() =>
                     {
                         try
                         {
-                            using (var process = Process.Start(processInfo))
+                            using (_process = Process.Start(processInfo))
                             {
-                                process.EnableRaisingEvents = true;
-                                process.OutputDataReceived += (sender, e) =>
-                                {
+                                //_process.EnableRaisingEvents = true;
+                                //_process.OutputDataReceived += (sender, e) =>
+                                //{
 
-                                };
-                                process.ErrorDataReceived += (sender, e) =>
-                                {
+                                //};
+                                //_process.ErrorDataReceived += (sender, e) =>
+                                //{
 
-                                };
-                                process.BeginOutputReadLine();
-                                process.Exited += (sender, e) =>
-                                {
-                                    IsActive = false;
-                                };
-
-                                process.WaitForExit();
+                                //};
+                                //_process.BeginOutputReadLine();
+                                _process.WaitForExit();
+                                IsActive = false;
                             }
                         }
                         catch (Exception ex)
@@ -78,9 +76,25 @@ namespace rtsp_client.Infarstructure
                 }
                 catch (Exception ex)
                 {
-                    IsActive = false;
+                    IsActive = false; 
                 }
             }
+        }
+
+        public void Stop()
+        {
+            try
+            {
+                _process.Dispose();
+            }
+            catch(Exception ex)
+            {
+            }
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }
